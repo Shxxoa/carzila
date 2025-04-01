@@ -27,6 +27,10 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="open-status" id="openStatus">
+        <span class="status-circle"></span>
+        <span id="statusText">Checking...</span>
+      </div>
     </div>
   </header>
 
@@ -35,7 +39,8 @@
     <div class="hero-content">
       <h2>Carzilla Auto Care</h2>
       <p>Your trusted auto service center – reliable, affordable, professional.</p>
-      <a href="#contact" class="cta-btn">Book Your Service</a>
+      <a href="tel:5176622815" class="cta-btn">Book Your Service</a>
+
     </div>
   </section>
 
@@ -68,36 +73,7 @@
   <section id="testimonials" class="testimonials" data-aos="fade-up">
     <h2>What Our Customers Say</h2>
     <div class="testimonial-slider">
-      <div class="testimonial active">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jordan P." />
-        <div class="stars">★★★★★</div>
-        <p>"These guys did an amazing job with my detailing. My car looks brand new!"</p>
-        <h4>– Jordan P.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Fatima K." />
-        <div class="stars">★★★★★</div>
-        <p>"Great service, fair prices, and super friendly staff. Highly recommend!"</p>
-        <h4>– Fatima K.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Malik R." />
-        <div class="stars">★★★★★</div>
-        <p>"Carzilla fixed my brakes fast and gave great advice. Honest team!"</p>
-        <h4>– Malik R.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Sophia L." />
-        <div class="stars">★★★★★</div>
-        <p>"Exceptional service! The staff went above and beyond to ensure my car was in top shape."</p>
-        <h4>– Sophia L.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Daniel M." />
-        <div class="stars">★★★★★</div>
-        <p>"I've never had a better experience at an auto care center. Highly recommend Carzilla!"</p>
-        <h4>– Daniel M.</h4>
-      </div>
+      <!-- Your testimonials go here -->
     </div>
     <p style="margin-top: 2rem;">
       <a href="https://www.google.com/maps/place/CARZILLA+AUTO+CARE" target="_blank" class="cta-btn">Read More Reviews</a>
@@ -107,11 +83,12 @@
   <!-- CONTACT -->
   <section id="contact" class="contact" data-aos="fade-up">
     <h2>Contact Us</h2>
-    <form class="contact-form" action="#" method="POST">
+    <form class="contact-form" id="contactForm">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Send Message</button>
+      <p id="formStatus" style="margin-top: 1rem; color: lime; display: none;">Thank you! We'll be in touch soon.</p>
     </form>
   </section>
 
@@ -129,9 +106,9 @@
     const testimonials = document.querySelectorAll(".testimonial");
     let current = 0;
     setInterval(() => {
-      testimonials[current].classList.remove("active");
+      testimonials[current]?.classList.remove("active");
       current = (current + 1) % testimonials.length;
-      testimonials[current].classList.add("active");
+      testimonials[current]?.classList.add("active");
     }, 4000);
 
     function toggleMobileMenu() {
@@ -140,6 +117,62 @@
       nav.classList.toggle("show");
       burger.classList.toggle("active");
     }
+
+    // OPEN/CLOSED STATUS
+    function checkOpenStatus() {
+      const now = new Date();
+      const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+      const hour = now.getHours();
+
+      const open = (day >= 1 && day <= 5) && (hour >= 9 && hour < 18);
+
+      const statusText = document.getElementById("statusText");
+      const circle = document.querySelector(".status-circle");
+
+      if (open) {
+        statusText.textContent = "Now Open – Come Visit Us";
+        circle.style.backgroundColor = "#00c853"; // green
+      } else {
+        statusText.textContent = "Closed";
+        circle.style.backgroundColor = "#d50000"; // red
+      }
+    }
+
+    checkOpenStatus();
+
+    // FORMSPREE - NO REDIRECT
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+
+    contactForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const actionURL = "https://formspree.io/f/xrbpyznz";
+
+      try {
+        const response = await fetch(actionURL, {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: formData
+        });
+
+        if (response.ok) {
+          formStatus.style.display = "block";
+          contactForm.reset();
+        } else {
+          formStatus.textContent = "Something went wrong. Please try again.";
+          formStatus.style.color = "red";
+          formStatus.style.display = "block";
+        }
+      } catch (err) {
+        formStatus.textContent = "Server error. Please try again.";
+        formStatus.style.color = "red";
+        formStatus.style.display = "block";
+      }
+    });
   </script>
 </body>
 </html>

@@ -36,7 +36,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.01rem 1rem;
+  padding: 0.1rem 2rem;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   position: sticky;
@@ -82,7 +82,7 @@ a:hover {
   box-shadow: 0 0 10px var(--primary);
 }
 
-/* ===== HAMBURGER MENU (only visible on mobile) ===== */
+/* ===== HAMBURGER MENU (MOBILE ONLY) ===== */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -111,6 +111,31 @@ a:hover {
 
 .hamburger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* ===== OPEN/CLOSED STATUS ===== */
+.open-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  margin-left: auto;
+}
+
+.status-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: gray;
+}
+
+@media (max-width: 768px) {
+  .open-status {
+    display: none;
+  }
 }
 
 /* ===== HERO ===== */
