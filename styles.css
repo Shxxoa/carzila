@@ -36,7 +36,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 3rem;
+  padding: 0.01rem 1rem;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   position: sticky;
