@@ -19,10 +19,8 @@
   <!-- HEADER -->
   <header>
     <div class="nav-container">
-      <div class="logo-darkmode">
-        <img src="carzilla-logo.png" alt="Carzilla Logo" />
-      </div>
-      <ul class="nav-links">
+      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</div>
+      <ul class="nav-links" id="navLinks">
         <li><a href="#hero">Home</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#about">About</a></li>
@@ -134,6 +132,10 @@
       current = (current + 1) % testimonials.length;
       testimonials[current].classList.add("active");
     }, 4000);
+
+    function toggleMobileMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
   </script>
 </body>
 </html>
