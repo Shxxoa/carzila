@@ -19,7 +19,11 @@
   <!-- HEADER -->
   <header>
     <div class="nav-container">
-      <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</div>
+      <div class="hamburger" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <ul class="nav-links" id="navLinks">
         <li><a href="#hero">Home</a></li>
         <li><a href="#services">Services</a></li>
@@ -134,7 +138,10 @@
     }, 4000);
 
     function toggleMobileMenu() {
-      document.getElementById("navLinks").classList.toggle("show");
+      const navLinks = document.getElementById("navLinks");
+      const hamburger = document.querySelector(".hamburger");
+      navLinks.classList.toggle("show");
+      hamburger.classList.toggle("active");
     }
   </script>
 </body>
