@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carzilla Auto Care – Trusted Auto Repair & Detailing Services" />
+  <meta name="keywords" content="auto care, car repair, car detailing, oil change, Lansing" />
+  <meta name="author" content="Carzilla Auto Care" />
+  <title>Carzilla Auto Care</title>
+
+  <!-- STYLES -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <div class="logo-darkmode">
+        <img src="carzilla-logo.png" alt="Carzilla Logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="hero" data-aos="fade-up">
+    <div class="hero-content">
+      <h2>Carzilla Auto Care</h2>
+      <p>Your trusted auto service center – reliable, affordable, professional.</p>
+      <a href="#contact" class="cta-btn">Book Your Service</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services" data-aos="fade-up">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <div class="card" data-aos="zoom-in">
+        <h3>Oil Change</h3>
+        <p>High-quality synthetic and conventional oil options.</p>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="100">
+        <h3>Brake Repair</h3>
+        <p>Full brake inspections, replacements, and safety checks.</p>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="200">
+        <h3>Detailing</h3>
+        <p>Interior & exterior deep cleaning and polish.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about" data-aos="fade-up">
+    <h2>About Us</h2>
+    <p>We’re passionate about cars and even more passionate about our customers. With over 10 years of experience, Carzilla delivers top-quality auto care with a smile.</p>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="testimonials" data-aos="fade-up">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-slider">
+      <div class="testimonial active">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jordan P." />
+        <div class="stars">★★★★★</div>
+        <p>"These guys did an amazing job with my detailing. My car looks brand new!"</p>
+        <h4>– Jordan P.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Fatima K." />
+        <div class="stars">★★★★★</div>
+        <p>"Great service, fair prices, and super friendly staff. Highly recommend!"</p>
+        <h4>– Fatima K.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Malik R." />
+        <div class="stars">★★★★★</div>
+        <p>"Carzilla fixed my brakes fast and gave great advice. Honest team!"</p>
+        <h4>– Malik R.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Sophia L." />
+        <div class="stars">★★★★★</div>
+        <p>"Exceptional service! The staff went above and beyond to ensure my car was in top shape."</p>
+        <h4>– Sophia L.</h4>
+      </div>
+      <div class="testimonial">
+        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Daniel M." />
+        <div class="stars">★★★★★</div>
+        <p>"I've never had a better experience at an auto care center. Highly recommend Carzilla!"</p>
+        <h4>– Daniel M.</h4>
+      </div>
+    </div>
+    <p style="margin-top: 2rem;">
+      <a href="https://www.google.com/maps/place/CARZILLA+AUTO+CARE" target="_blank" class="cta-btn">Read More Reviews</a>
+    </p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact" data-aos="fade-up">
+    <h2>Contact Us</h2>
+    <form class="contact-form" action="#" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Carzilla Auto Care. All rights reserved.</p>
+    <p>Designed by OMAR ABDULWAHHAB</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const testimonials = document.querySelectorAll(".testimonial");
+    let current = 0;
+    setInterval(() => {
+      testimonials[current].classList.remove("active");
+      current = (current + 1) % testimonials.length;
+      testimonials[current].classList.add("active");
+    }, 4000);
+  </script>
+</body>
+</html>
