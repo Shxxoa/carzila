@@ -59,14 +59,21 @@ a:hover {
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
+
 
 .status-circle {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: gray;
+  background-color: red;
 }
+
 @media (max-width: 768px) {
   .open-status {
     font-size: 0.85rem;
