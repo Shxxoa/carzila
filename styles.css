@@ -572,14 +572,41 @@ footer p {
 @media (max-width: 768px) {
   .open-status {
     position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 0.85rem;
-    gap: 0.3rem;
+    top: 16px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fff;
+    z-index: 1500;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
   }
-
+  
   .status-circle {
     width: 10px;
     height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: gray;
+  }
+  
+  
+}
+@media (max-width: 768px) {
+  .open-status {
+    top: 12px;
+    right: 12px;
+    font-size: 0.85rem;
+    padding: 3px 6px;
+  }
+
+  .status-circle {
+    width: 8px;
+    height: 8px;
   }
 }
