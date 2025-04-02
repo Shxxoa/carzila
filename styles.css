@@ -135,11 +135,8 @@ a:hover {
   background-color: gray;
 }
 
-@media (max-width: 768px) {
-  .open-status {
-    display: none;
-  }
-}
+
+
 
 /* ===== HERO ===== */
 .hero {
@@ -570,5 +567,19 @@ footer p {
   .hero-content {
     padding: 1rem;
     margin-top: -30px;
+  }
+}
+@media (max-width: 768px) {
+  .open-status {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 0.85rem;
+    gap: 0.3rem;
+  }
+
+  .status-circle {
+    width: 10px;
+    height: 10px;
   }
 }
