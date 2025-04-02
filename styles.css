@@ -534,6 +534,8 @@ footer p {
   margin-bottom: 0.3rem;
   line-height: 1.1;
   text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .hero-subtitle {
@@ -547,20 +549,26 @@ footer p {
   text-transform: uppercase;
   margin-top: 0.2rem;
   text-align: center;
+  word-break: break-word;
 }
-@media (max-width: 768px) {
+@media (max-width: 500px) {
   .hero-title {
-    font-size: 3.2rem;
-    letter-spacing: 4px;
+    font-size: 3rem;
+    letter-spacing: 3px;
   }
 
   .hero-subtitle {
-    font-size: 1.5rem;
-    letter-spacing: 2px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+
+  .cta-btn {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
   }
 
   .hero-content {
     padding: 1rem;
-    margin-top: -40px;
+    margin-top: -30px;
   }
 }
