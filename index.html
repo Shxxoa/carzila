@@ -22,7 +22,7 @@
         <span></span>
         <span></span>
       </div>
-  
+
       <!-- NAV LINKS -->
       <ul class="nav-links" id="navLinks">
         <li><a href="#hero">Home</a></li>
@@ -30,7 +30,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-  
+
       <!-- OPEN STATUS -->
       <div class="open-status" id="openStatus">
         <span class="status-circle"></span>
@@ -38,7 +38,6 @@
       </div>
     </div>
   </header>
-  
 
   <!-- HERO -->
   <section id="hero" class="hero" data-aos="fade-up">
@@ -72,46 +71,6 @@
   <section id="about" class="about" data-aos="fade-up">
     <h2>About Us</h2>
     <p>We’re passionate about cars and even more passionate about our customers. With over 10 years of experience, Carzilla delivers top-quality auto care with a smile.</p>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials" class="testimonials" data-aos="fade-up">
-    <h2>What Our Customers Say</h2>
-    <div class="testimonial-slider">
-      <div class="testimonial active">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jordan P." />
-        <div class="stars">★★★★★</div>
-        <p>"These guys did an amazing job with my detailing. My car looks brand new!"</p>
-        <h4>– Jordan P.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Fatima K." />
-        <div class="stars">★★★★★</div>
-        <p>"Great service, fair prices, and super friendly staff. Highly recommend!"</p>
-        <h4>– Fatima K.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Malik R." />
-        <div class="stars">★★★★★</div>
-        <p>"Carzilla fixed my brakes fast and gave great advice. Honest team!"</p>
-        <h4>– Malik R.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Sophia L." />
-        <div class="stars">★★★★★</div>
-        <p>"Exceptional service! The staff went above and beyond to ensure my car was in top shape."</p>
-        <h4>– Sophia L.</h4>
-      </div>
-      <div class="testimonial">
-        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Daniel M." />
-        <div class="stars">★★★★★</div>
-        <p>"I've never had a better experience at an auto care center. Highly recommend Carzilla!"</p>
-        <h4>– Daniel M.</h4>
-      </div>
-    </div>
-    <p style="margin-top: 2rem;">
-      <a href="https://www.google.com/maps/place/CARZILLA+AUTO+CARE" target="_blank" class="cta-btn">Read More Reviews</a>
-    </p>
   </section>
 
   <!-- CONTACT -->
@@ -152,61 +111,24 @@
       burger.classList.toggle("active");
     }
 
-    // OPEN/CLOSED STATUS
     function checkOpenStatus() {
       const now = new Date();
-      const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+      const day = now.getDay();
       const hour = now.getHours();
-
       const open = (day >= 1 && day <= 5) && (hour >= 9 && hour < 18);
-
       const statusText = document.getElementById("statusText");
       const circle = document.querySelector(".status-circle");
 
       if (open) {
         statusText.textContent = "Now Open – Come Visit Us";
-        circle.style.backgroundColor = "#00c853"; // green
+        circle.style.backgroundColor = "#00c853";
       } else {
         statusText.textContent = "Closed";
-        circle.style.backgroundColor = "#d50000"; // red
+        circle.style.backgroundColor = "#d50000";
       }
     }
 
     checkOpenStatus();
-
-    // FORMSPREE - NO REDIRECT
-    const contactForm = document.getElementById("contactForm");
-    const formStatus = document.getElementById("formStatus");
-
-    contactForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const formData = new FormData(contactForm);
-      const actionURL = "https://formspree.io/f/xrbpyznz";
-
-      try {
-        const response = await fetch(actionURL, {
-          method: "POST",
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: formData
-        });
-
-        if (response.ok) {
-          formStatus.style.display = "block";
-          contactForm.reset();
-        } else {
-          formStatus.textContent = "Something went wrong. Please try again.";
-          formStatus.style.color = "red";
-          formStatus.style.display = "block";
-        }
-      } catch (err) {
-        formStatus.textContent = "Server error. Please try again.";
-        formStatus.style.color = "red";
-        formStatus.style.display = "block";
-      }
-    });
   </script>
 </body>
 </html>
