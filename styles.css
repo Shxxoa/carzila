@@ -718,7 +718,7 @@ footer p {
 .popup {
   position: fixed;
   bottom: 30px;
-  right: 30px;
+  right: 20px;
   z-index: 9999;
   background: rgba(30, 30, 30, 0.95);
   border: 2px solid var(--primary);
@@ -767,4 +767,33 @@ footer p {
 
 .close-btn:hover {
   opacity: 1;
+}
+@media (max-width: 600px) {
+  .service-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    max-width: 90%;
+    margin: auto;
+    min-height: unset;
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+  }
+
+  .card p,
+  .card-price,
+  .card-note {
+    font-size: 0.95rem;
+  }
+
+  .card-icon {
+    width: 60px;
+    margin-bottom: 1rem;
+  }
 }
