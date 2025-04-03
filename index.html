@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script>
+    function closePopup() {
+      document.getElementById("firstTimePopup").style.display = "none";
+    }
+  
+    // Show popup after 4 seconds
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("firstTimePopup").style.display = "block";
+      }, 4000);
+    });
+  </script>
+  
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +24,15 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<!-- 10% OFF POPUP -->
+<div id="firstTimePopup" class="popup">
+  <div class="popup-content" data-aos="zoom-in">
+    <span class="close-btn" onclick="closePopup()">×</span>
+    <h3>🎉 10% OFF Your First Service!</h3>
+    <p>Offer expires 10/10/2025 Call NOW 517.816.7500</p>
+  </div>
+</div>
+
 <body>
 
   <!-- HEADER -->
@@ -115,7 +137,7 @@
         </div>
         <div class="card" data-aos="zoom-in" data-aos-delay="300">
           <img src="radiator.png" alt="Brake Icon" class="card-icon-animated" />
-          <h3>Radiator Flushes</h3>
+          <h3> Radiator Flushes </h3>
           <p>
             Includes labor.
             <br />
@@ -151,6 +173,31 @@
         </div>
     </div>
   </section>
+  <!-- DISCOUNTS SECTION -->
+<section id="discounts" class="discounts" data-aos="fade-up">
+  <div class="discount-header">
+    
+    <h2>Discounts & Special Offers</h2>
+  </div>
+  <ul class="discount-list">
+    <li>
+      <strong>50% OFF Tire Alignment</strong> after a purchase of a set of 4 new tires.
+    </li>
+    <li>
+      <strong>Need a second key or key fob?</strong><br />
+      We do onsite vehicle programming and custom key cutting starting at <strong>$49</strong> (costs vary).
+    </li>
+    <li>
+      <strong>City employees, law enforcement, healthcare workers</strong> get <strong>10% OFF</strong>!<br />
+      <strong>Seniors and veterans</strong> also eligible for <strong>10% OFF</strong>.
+    </li>
+    <li>
+      Every repair backed with a <strong>2 Year / 24K</strong> mile parts & labor coverage!
+      <span class="note">(Some exclusions may apply)</span>
+    </li>
+  </ul>
+</section>
+
 
   <!-- ABOUT -->
   <section id="about" class="about" data-aos="fade-up">
