@@ -264,17 +264,26 @@ h2 {
 }
 
 .card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 69, 0, 0.15);
+  box-shadow: 0 0 10px rgba(255, 69, 0, 0.08);
+  border-radius: 12px;
+  padding: 2rem 1.2rem;
+  min-height: 440px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 420px;
+  transition: all 0.3s ease-in-out;
 }
 
 .card-body {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 0 1rem;
 }
 
 @media (max-width: 600px) {
@@ -284,23 +293,38 @@ h2 {
 }
 
 
-
 .card h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
   color: var(--primary);
-  margin-bottom: 1rem;
-  text-shadow: 0 0 10px var(--primary);
+  text-align: center;
+  text-shadow:
+    0 0 5px var(--primary),
+    0 0 10px var(--primary);
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
 }
 
-.card p {
-  font-size: 1rem;
-  color: var(--text);
-  opacity: 0.7;
+.card p,
+.card .note-tag {
+  font-size: 0.95rem;
+  color: #ccc;
+  opacity: 0.85;
+  text-align: center;
+  margin: 0.3rem 0;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+}
+.price-tag {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--secondary);
+  text-shadow: 0 0 6px var(--secondary);
+  margin-top: 1rem;
 }
 
 .card:hover {
   border-color: var(--primary);
-  box-shadow: 0 0 20px var(--primary);
+  box-shadow: 0 0 25px var(--primary);
 }
 
 /* ===== ABOUT ===== */
@@ -624,29 +648,25 @@ footer p {
 .card-icon-animated {
   width: 160px;
   margin-bottom: 1rem;
-  animation: bounceFade 2.5s infinite ease-in-out;
-  filter: drop-shadow(0 0 8px var(--primary));
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0 0 10px var(--primary));
+  animation: pulseIcon 3s infinite ease-in-out;
 }
 
-@keyframes bounceFade {
+@keyframes pulseIcon {
   0%, 100% {
-    transform: translateY(0);
+    transform: scale(1);
     opacity: 1;
   }
   50% {
-    transform: translateY(-8px);
-    opacity: 0.85;
+    transform: scale(1.03);
+    opacity: 0.95;
   }
 }
 
-.price-tag {
-  display: inline-block;
-  margin-top: 0.6rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--secondary);
-  text-shadow: 0 0 6px var(--secondary);
-}
+
 
 .note-tag {
   font-size: 0.85rem;
@@ -809,4 +829,23 @@ footer p {
     width: 60px;
     margin-bottom: 1rem;
   }
+}
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers horizontally */
+  justify-content: center; /* centers vertically */
+  text-align: center;
+  padding: 0 1rem; /* avoids text hugging edges */
+}
+
+.card p,
+.note-tag {
+  margin: 0.4rem 0;
+  text-align: center;
+}
+
+.price-tag {
+  margin-top: 1rem;
 }
