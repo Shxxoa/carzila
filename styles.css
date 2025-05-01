@@ -154,7 +154,7 @@ a:hover {
 
 /* ===== HERO ===== */
 .hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(30, 30, 30, 0.4)), url('carzila.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(30, 30, 30, 0.4)), url('backgroundoaap.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
