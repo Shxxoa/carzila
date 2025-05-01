@@ -647,13 +647,14 @@ footer p {
   }
 
   .hero-content {
-    margin-top: 60px; /* Adjust this value if you want it higher or lower */
+    margin-top: 70px; /* Adjust this value if you want it higher or lower */
     padding: 1rem;
   }
 
   .cta-btn {
-    font-size: 1.1rem;
-    padding: 1rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;  
+    padding: 1.1rem 2.8rem;
   }
 }
 
