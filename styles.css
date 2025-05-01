@@ -643,4 +643,8 @@ footer p {
     background-position: center center;
     background-attachment: scroll;
   }
+
+  .hero-content {
+    margin-top: -120px;
+  }
 }
