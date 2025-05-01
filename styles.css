@@ -730,3 +730,44 @@ footer p {
   border-width: 1px;
   margin-top: 2rem;
 }
+@media (max-width: 768px) {
+  .review-container {
+    height: auto;
+    min-height: 320px; /* ensures it doesn’t collapse */
+    padding: 1rem;
+  }
+
+  .review {
+    position: static;
+    opacity: 1;
+    display: none;
+  }
+
+  .review.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .review p {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  .review img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .review h3 {
+    font-size: 1.1rem;
+  }
+
+  .review .stars {
+    font-size: 1rem;
+  }
+
+  .review-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+  }
+}
