@@ -924,3 +924,32 @@ footer p {
   margin: 1rem;
 }
 
+
+/* === WIDEN HERO SECTION ON LARGE SCREENS === */
+#hero.hero {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-attachment: scroll;
+  background-position: center top;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+/* === GLOBAL SECTION WIDTH FIX === */
+section {
+  padding: 6rem 4%;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* === OPTIONAL: Tweak for very large screens === */
+@media (min-width: 1600px) {
+  section {
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+}
+
