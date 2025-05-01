@@ -641,14 +641,19 @@ footer p {
     background-size: cover;
     background-position: center center;
     background-attachment: scroll;
+
+    /* 👇 This moves your content to the top instead of centered */
+    align-items: flex-start;
   }
 
   .hero-content {
-    margin-top: -160px;
-    
+    margin-top: 60px; /* Adjust this value if you want it higher or lower */
+    padding: 1rem;
   }
+
   .cta-btn {
     font-size: 1.1rem;
     padding: 1rem 2.5rem;
   }
 }
+
