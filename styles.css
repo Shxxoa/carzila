@@ -776,60 +776,46 @@ footer p {
 
 
 
+
+
+/* ===== CONTACT ===== */
 .contact-modern {
   padding: 6rem 2rem;
   background: rgba(255, 255, 255, 0.03);
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 30px rgba(194, 0, 0, 0.08);
   backdrop-filter: blur(4px);
+  text-align: center;
 }
 
-.contact-wrapper {
-  display: flex;
-  gap: 3rem;
-  justify-content: space-between;
-  align-items: stretch;
-  max-width: 1100px;
-  margin: auto;
-  flex-wrap: wrap;
-  background: rgba(255,255,255,0.02);
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(194, 0, 0, 0.05);
-  overflow: hidden;
-}
-
-.contact-details {
-  flex: 1 1 400px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.contact-details h2 {
+.contact-modern h2 {
+  font-size: 2.5rem;
   color: var(--primary);
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
 }
 
 .contact-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 700px;
+  text-align: center;
 }
 
 .contact-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
   margin-bottom: 1.4rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.85;
 }
 
 .contact-list span {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--accent);
-  line-height: 1.5;
+  margin-right: 0.5rem;
 }
 
 .contact-list a {
@@ -855,101 +841,17 @@ footer p {
   filter: drop-shadow(0 0 6px var(--primary));
 }
 
-.contact-map {
-  flex: 1 1 500px;
-  min-height: 360px;
-  border-radius: 0;
-  overflow: hidden;
-}
-
 @media (max-width: 768px) {
-  .contact-wrapper {
-    flex-direction: column;
-  }
-
-  .contact-details,
-  .contact-map {
-    width: 100%;
-    padding: 1.5rem;
-  }
-
-  .contact-map {
-    min-height: 300px;
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-wrapper {
-    flex-direction: column;
-    padding: 1.5rem;
-    gap: 2rem;
-  }
-
-  .contact-details h2 {
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 1rem;
+  .contact-modern h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .contact-list li {
-    align-items: center;
-    gap: 0.8rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .contact-list span {
-    font-size: 1.1rem;
-    line-height: 1;
-  }
-
-  .facebook-link img {
-    width: 18px;
-    height: 18px;
-    margin-bottom: -2px;
-  }
-
-  .contact-map {
-    height: 250px;
-    min-height: unset;
-  }
-
-  iframe {
-    height: 100%;
-    border-radius: 8px;
+    font-size: 1.2rem;
   }
 }
-.contact-modern {
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(194, 0, 0, 0.2);
-  margin: 1rem;
-}
-
-
-/* === WIDEN HERO SECTION ON LARGE SCREENS === */
-#hero.hero {
-  max-width: none;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  background-attachment: scroll;
-  background-position: center top;
-  background-size: cover;
-  min-height: 100vh;
-}
-
-/* === GLOBAL SECTION WIDTH FIX === */
-section {
-  padding: 6rem 4%;
-  max-width: 100%;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* === OPTIONAL: Tweak for very large screens === */
-@media (min-width: 1600px) {
-  section {
-    padding-left: 8%;
-    padding-right: 8%;
-  }
-}
-
