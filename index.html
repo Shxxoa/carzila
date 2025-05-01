@@ -216,6 +216,52 @@
     <p>We’re passionate about cars and even more passionate about our customers. With over 10 years of experience, Carzilla delivers top-quality auto care with a smile.</p>
   </section>
 
+
+<!-- REVIEWS SECTION -->
+<!-- REVIEWS SECTION -->
+<section id="reviews" class="reviews" data-aos="fade-up">
+  <h2>Customer Reviews</h2>
+  <div class="review-container">
+    <div class="review active">
+      <img src="https://i.pravatar.cc/100?img=1" alt="Reviewer 1">
+      <h3>Basheer A.</h3>
+      <div class="stars">★★★★★</div>
+      <p>"The team over there thrives to make your experience more memorable and enjoyable. Their prices are amazing!"</p>
+    </div>
+    <div class="review">
+      <img src="https://i.pravatar.cc/100?img=2" alt="Reviewer 2">
+      <h3>C B.</h3>
+      <div class="stars">★★★★★</div>
+      <p>"Definitely the place to go for honest, affordable, professional car repair and maintenance! The mechanics and management go above and beyond for their customers and their vehicles. Highly recommend!"</p>
+    </div>
+    <div class="review">
+      <img src="https://i.pravatar.cc/100?img=3" alt="Reviewer 3">
+      <h3>Angelica G.</h3>
+      <div class="stars">★★★★★</div>
+      <p>"Great honest lol. Very honest and affordable repair shop."</p>
+    </div>
+    <div class="review">
+      <img src="https://i.pravatar.cc/100?img=4" alt="Reviewer 4">
+      <h3>Hoda M.</h3>
+      <div class="stars">★★★★★</div>
+      <p>"The technicians were knowledgeable and explained the issues with my car clearly, im amazed."</p>
+    </div>
+    <div class="review">
+      <img src="https://i.pravatar.cc/100?img=5" alt="Reviewer 5">
+      <h3>Jen C.</h3>
+      <div class="stars">★★★★★</div>
+      <p>"Very friendly and quick."</p>
+    </div>
+  </div>
+  <a href="https://www.google.com/maps/place/CARZILLA+AUTO+CARE/@42.6993788,-84.5644796,312m/data=!3m1!1e3!4m18!1m9!3m8!1s0x8817f130017d5edd:0x5e1bcab597c2a911!2sCARZILLA+AUTO+CARE!8m2!3d42.6993778!4d-84.5638359!9m1!1b1!16s%2Fg%2F11sds7r65c!3m7!1s0x8817f130017d5edd:0x5e1bcab597c2a911!8m2!3d42.6993778!4d-84.5638359!9m1!1b1!16s%2Fg%2F11sds7r65c?entry=ttu&g_ep=EgoyMDI1MDQyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="cta-btn review-btn">Read More Reviews</a>
+</section>
+
+
+
+
+
+
+
   <!-- CONTACT -->
   <section id="contact" class="contact" data-aos="fade-up">
     <h2>Contact Us</h2>
@@ -227,6 +273,15 @@
       <p id="formStatus" style="margin-top: 1rem; color: lime; display: none;">Thank you! We'll be in touch soon.</p>
     </form>
   </section>
+ 
+<!-- rev -->
+
+
+
+
+
+
+   
 
   <!-- FOOTER -->
   <footer>
@@ -272,6 +327,18 @@
     }
 
     checkOpenStatus();
+
+  const reviews = document.querySelectorAll('.review');
+  let currentReview = 0;
+
+  function showNextReview() {
+    reviews[currentReview].classList.remove('active');
+    currentReview = (currentReview + 1) % reviews.length;
+    reviews[currentReview].classList.add('active');
+  }
+
+  setInterval(showNextReview, 5000); // Change review every 5 seconds
+</script>
   </script>
 </body>
 </html>
