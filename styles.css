@@ -635,3 +635,12 @@ footer p {
     margin-bottom: 1rem;
   }
 }
+/* for the phone ver */
+@media (max-width: 768px) {
+  .hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(30, 30, 30, 0.4)), url('phoneverphoto.png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+  }
+}
