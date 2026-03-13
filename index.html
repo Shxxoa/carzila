@@ -1,363 +1,1376 @@
 <!DOCTYPE html>
 <html lang="en">
-  <script>
-    function closePopup() {
-      document.getElementById("firstTimePopup").style.display = "none";
-    }
-  
-    // Show popup after 4 seconds
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("firstTimePopup").style.display = "block";
-      }, 4000);
-    });
-  </script>
-  
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Carzilla Auto Care – Trusted Auto Repair & Detailing Services" />
+  <meta name="description" content="Carzilla Auto Care – Trusted Auto Repair & Detailing Services in Lansing, MI" />
   <title>Carzilla Auto Care</title>
-
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    /* ── RESET & ROOT ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #c8102e;
+      --red2:   #ff1a3c;
+      --dark:   #0a0a0a;
+      --dark2:  #111118;
+      --panel:  #15151e;
+      --border: rgba(200,16,46,0.25);
+      --text:   #e8e8f0;
+      --muted:  #8888a0;
+      --gold:   #f5c518;
+      --glow:   0 0 20px rgba(200,16,46,0.5);
+      --glow-sm:0 0 10px rgba(200,16,46,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    /* ── NAV ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 68px;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      filter: drop-shadow(0 0 8px rgba(200,16,46,0.6));
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s, text-shadow 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--red);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; box-shadow: var(--glow-sm); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #f00;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,200,0,0.4); }
+      50% { box-shadow: 0 0 0 4px rgba(0,200,0,0); }
+    }
+
+    .nav-cta {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--red);
+      padding: 0.5rem 1.2rem;
+      text-decoration: none;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .nav-cta:hover {
+      background: var(--red2);
+      box-shadow: var(--glow);
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--red);
+      transition: all 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('backgroundoaap.png') center center / cover no-repeat;
+      transform: scale(1.05);
+      animation: hero-zoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes hero-zoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.12); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(0,0,0,0.85) 0%,
+        rgba(10,0,0,0.6) 50%,
+        rgba(0,0,0,0.75) 100%
+      );
+    }
+
+    .hero-overlay2 {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(200,16,46,0.12) 0%, transparent 60%);
+    }
+
+    /* scanlines effect */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 1;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+
+    .hero-title span {
+      color: var(--red);
+      text-shadow: 0 0 30px rgba(200,16,46,0.7), 0 0 60px rgba(200,16,46,0.3);
+    }
+
+    .hero-sub {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0.8rem 0 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.9s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--red);
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--red2);
+      box-shadow: var(--glow), 0 0 40px rgba(200,16,46,0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: all 0.3s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--red);
+      color: #fff;
+      box-shadow: var(--glow-sm);
+    }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--red), transparent);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section {
+      position: relative;
+      padding: 7rem 2rem;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .section-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--red);
+      box-shadow: var(--glow-sm);
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── SERVICES ── */
+    #services {
+      max-width: 1400px;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .services-header .section-divider {
+      margin: 0 auto 0;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+    }
+
+    .service-card {
+      background: var(--dark2);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px; height: 0;
+      background: var(--red);
+      box-shadow: var(--glow-sm);
+      transition: height 0.4s ease;
+    }
+
+    .service-card:hover::before { height: 100%; }
+    .service-card:hover { background: #1a1a24; }
+
+    .card-icon-wrap {
+      width: 90px; height: 90px;
+      background: rgba(200,16,46,0.08);
+      border: 1px solid rgba(200,16,46,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .service-card:hover .card-icon-wrap {
+      background: rgba(200,16,46,0.15);
+      border-color: var(--red);
+      box-shadow: var(--glow-sm);
+    }
+
+    .card-icon-wrap img {
+      width: 54px; height: 54px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 4px rgba(200,16,46,0.4));
+    }
+
+    .service-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .service-note {
+      font-size: 0.75rem;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .service-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 0 0 12px rgba(245,197,24,0.5);
+      margin-top: auto;
+    }
+
+    /* ── DISCOUNTS ── */
+    .discounts-wrap {
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .discounts-wrap section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .discount-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .discount-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid var(--red);
+      padding: 1.2rem 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .discount-item:hover {
+      background: rgba(200,16,46,0.05);
+      border-left-color: var(--red2);
+      transform: translateX(4px);
+    }
+
+    .discount-item-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .discount-item-text {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .discount-item-text strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .discount-item-text small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
+
+    .discount-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .warranty-badge {
+      background: rgba(200,16,46,0.08);
+      border: 1px solid var(--border);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      clip-path: polygon(15px 0%, 100% 0%, calc(100% - 15px) 100%, 0% 100%);
+    }
+
+    .warranty-badge .big-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--red);
+      text-shadow: var(--glow);
+      line-height: 1;
+    }
+
+    .warranty-badge .label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-wrap {
+      background: var(--dark2);
+    }
+
+    .about-wrap section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      display: block;
+      filter: saturate(0.8) contrast(1.1);
+    }
+
+    .about-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200,16,46,0.15) 0%, transparent 60%);
+    }
+
+    .about-image-frame {
+      position: absolute;
+      inset: -8px;
+      border: 1px solid rgba(200,16,46,0.3);
+      pointer-events: none;
+    }
+
+    .about-image-frame::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px;
+      width: 40px; height: 40px;
+      border-top: 2px solid var(--red);
+      border-left: 2px solid var(--red);
+    }
+
+    .about-image-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 40px; height: 40px;
+      border-bottom: 2px solid var(--red);
+      border-right: 2px solid var(--red);
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(200,16,46,0.05);
+    }
+
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--red);
+      text-shadow: var(--glow-sm);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── REVIEWS ── */
+    .reviews-wrap {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--panel) 100%);
+      border-top: 1px solid var(--border);
+    }
+
+    .reviews-wrap section {
+      text-align: center;
+    }
+
+    .review-slider {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      position: relative;
+      min-height: 240px;
+    }
+
+    .review-card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+    }
+
+    .review-card.active { opacity: 1; }
+
+    .review-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--red);
+      object-fit: cover;
+      box-shadow: 0 0 12px rgba(200,16,46,0.4);
+    }
+
+    .review-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+
+    .review-stars { color: var(--gold); font-size: 1rem; letter-spacing: 3px; }
+
+    .review-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 550px;
+    }
+
+    .review-dots {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .review-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .review-dot.active {
+      background: var(--red);
+      box-shadow: var(--glow-sm);
+    }
+
+    /* ── CONTACT ── */
+    .contact-wrap {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-wrap section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      padding: 1.2rem 1.5rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-left: 2px solid var(--red);
+      transition: all 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contact-item:hover {
+      background: rgba(200,16,46,0.06);
+      border-left-color: var(--red2);
+      transform: translateX(4px);
+      color: inherit;
+    }
+
+    .contact-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 36px;
+      text-align: center;
+    }
+
+    .contact-detail-label {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-detail-val {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .contact-detail-val small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    .contact-map {
+      position: relative;
+    }
+
+    .contact-map iframe {
+      width: 100%;
+      height: 380px;
+      border: 1px solid var(--border);
+      filter: saturate(0.5) invert(0.9) hue-rotate(180deg);
+    }
+
+    .map-overlay-tag {
+      position: absolute;
+      bottom: 1rem; left: 1rem;
+      background: rgba(10,10,10,0.9);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.8rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--red);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      opacity: 0.6;
+      margin-bottom: 1rem;
+    }
+
+    .footer-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer-text span {
+      color: var(--red);
+    }
+
+    /* ── POPUP ── */
+    .popup {
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      z-index: 9999;
+      width: 320px;
+      background: var(--panel);
+      border: 1px solid var(--red);
+      box-shadow: var(--glow), 0 20px 60px rgba(0,0,0,0.5);
+      padding: 1.8rem;
+      display: none;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+      animation: slidePopup 0.5s ease forwards;
+    }
+
+    @keyframes slidePopup {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0); opacity: 1; }
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 0.6rem; right: 0.8rem;
+      font-size: 1.2rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .popup-close:hover { color: var(--red); }
+
+    .popup-eyebrow {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.5rem;
+    }
+
+    .popup-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(245,197,24,0.5);
+      margin-bottom: 0.5rem;
+    }
+
+    .popup-body {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .popup-body strong { color: var(--text); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        position: fixed;
+        inset: 0;
+        background: rgba(5,5,5,0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        transform: translateX(100%);
+        transition: transform 0.4s ease;
+        z-index: 1050;
+      }
+      .nav-links.show { transform: translateX(0); }
+      .nav-links a { font-size: 1rem; }
+      .nav-cta { display: none; }
+      .status-pill { display: none; }
+
+      .hero-bg {
+        background-image: url('phoneverphoto.png') !important;
+        background-size: cover;
+      }
+
+      .discounts-wrap section,
+      .about-wrap section,
+      .contact-wrap section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .contact-map { display: none; }
+
+      .review-card { position: static; opacity: 1; display: none; }
+      .review-card.active { display: flex; }
+      .review-slider { min-height: auto; }
+    }
+  </style>
 </head>
-<!-- 10% OFF POPUP -->
-<div id="firstTimePopup" class="popup">
-  <div class="popup-content" data-aos="zoom-in">
-    <span class="close-btn" onclick="closePopup()">×</span>
-    <h3>🎉 10% OFF Your First Service!</h3>
-    <p>Offer expires 10/10/2025 Call NOW 517.977.0450</p>
-  </div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <span class="popup-close" onclick="document.getElementById('popup').style.display='none'">×</span>
+  <div class="popup-eyebrow">Limited Time</div>
+  <div class="popup-title">10% OFF</div>
+  <div class="popup-body">Your first service! <strong>Expires 10/10/2025.</strong><br>Call us now: <strong>517.977.0450</strong></div>
 </div>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="nav-container">
-      <!-- HAMBURGER -->
-      <div class="hamburger" onclick="toggleMobileMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <!-- NAV LINKS -->
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <!-- OPEN STATUS -->
-      <div class="open-status" id="openStatus">
-        <span class="status-circle"></span>
+<!-- HEADER -->
+<header>
+  <div class="nav-container">
+    <a class="nav-logo" href="#hero">
+      <img src="carzilla-logo.png" alt="Carzilla Auto Care" />
+    </a>
+    <div class="hamburger" onclick="toggleMenu()" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" onclick="closeMenu()">Home</a></li>
+      <li><a href="#services" onclick="closeMenu()">Services</a></li>
+      <li><a href="#discounts" onclick="closeMenu()">Deals</a></li>
+      <li><a href="#about" onclick="closeMenu()">About</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="status-pill">
+        <div class="status-dot" id="statusDot"></div>
         <span id="statusText">Checking...</span>
       </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section id="hero" class="hero" data-aos="fade-up">
-    <div class="hero-content">
-      <a href="tel:+15179770450" class="cta-btn">Book an Appointment</a>
-
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services" class="services" data-aos="fade-up">
-    <h2>Our Services</h2>
-    <div class="service-cards">
-  
-      <div class="card" data-aos="zoom-in">
-        <img src="oilchange.png" alt="Oil Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Full Synthetic Oil Change</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-         
-        </div>
-        <p class="price-tag">$49</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="breakk.png" alt="Brake Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Front Brakes & Rotors Special</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-        </div>
-        <p class="price-tag">$289</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="rearr.png" alt="Brake Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Rear Brakes & Rotors Special</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-        </div>
-        <p class="price-tag">$289</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="muffler.png" alt="Muffler Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Muffler & Exhaust Repair</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-         
-        </div>
-        <p class="price-tag">$89</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="tireinstall.png" alt="Tire Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Tire Install</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-        </div>
-        <p class="price-tag">$24.95</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="ac.png" alt="AC Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>AC Recharge & Evac</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-         
-        </div>
-        <p class="price-tag">$89</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="radiator.png" alt="Radiator Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Radiator Flushes</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-          
-        </div>
-        <p class="price-tag">$179</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="check.png" alt="Check Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>Vehicle Full Inspection Check</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-          
-        </div>
-        <p class="price-tag">$89</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="2WHEEL.png" alt="2 Wheel Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>2 Wheel Alignments</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-          
-        </div>
-        <p class="price-tag">$69</p>
-      </div>
-  
-      <div class="card" data-aos="zoom-in" data-aos-delay="300">
-        <img src="4wheel.png" alt="4 Wheel Icon" class="card-icon-animated" />
-        <div class="card-body">
-          <h3>4 Wheel Alignments</h3>
-          <p>Includes parts & labor.</p>
-          <p class="note-tag">Some vehicles may vary in cost.</p>
-          
-        </div>
-        <p class="price-tag">$89</p>
-      </div>
-  
-    </div>
-  </section>
-  
-  <!-- DISCOUNTS SECTION -->
-<section id="discounts" class="discounts" data-aos="fade-up">
-  <div class="discount-header">
-    
-    <h2>Discounts & Special Offers</h2>
-  </div>
-  <ul class="discount-list">
-    <li>
-      <strong>50% OFF Tire Alignment</strong> after a purchase of a set of 4 new tires.
-    </li>
-    <li>
-      <strong>Need a second key or key fob?</strong><br />
-      We do onsite vehicle programming and custom key cutting starting at <strong>$49</strong> (costs vary).
-    </li>
-    <li>
-      <strong>City employees, law enforcement, healthcare workers</strong> get <strong>10% OFF</strong>!<br />
-      <strong>Seniors and veterans</strong> also eligible for <strong>10% OFF</strong>.
-    </li>
-    <li>
-      Every repair backed with a <strong>2 Year / 24K</strong> mile parts & labor coverage!
-      <span class="note">(Some exclusions may apply)</span>
-    </li>
-  </ul>
-</section>
-
-
-  <!-- ABOUT -->
-  <section id="about" class="about" data-aos="fade-up">
-    <h2>About Us</h2>
-    <p>We’re passionate about cars and even more passionate about our customers. With over 10 years of experience, Carzilla delivers top-quality auto care with a smile.</p>
-  </section>
-
-
-<!-- REVIEWS SECTION -->
-<!-- REVIEWS SECTION -->
-<section id="reviews" class="reviews" data-aos="fade-up">
-  <h2>Customer Reviews</h2>
-  <div class="review-container">
-    <div class="review active">
-      <img src="https://i.pravatar.cc/100?img=1" alt="Reviewer 1">
-      <h3>Basheer A.</h3>
-      <div class="stars">★★★★★</div>
-      <p>"The team over there thrives to make your experience more memorable and enjoyable. Their prices are amazing!"</p>
-    </div>
-    <div class="review">
-      <img src="https://i.pravatar.cc/100?img=2" alt="Reviewer 2">
-      <h3>C B.</h3>
-      <div class="stars">★★★★★</div>
-      <p>"Definitely the place to go for honest, affordable, professional car repair and maintenance! The mechanics and management go above and beyond for their customers and their vehicles. Highly recommend!"</p>
-    </div>
-    <div class="review">
-      <img src="https://i.pravatar.cc/100?img=3" alt="Reviewer 3">
-      <h3>Angelica G.</h3>
-      <div class="stars">★★★★★</div>
-      <p>"Great honest lol. Very honest and affordable repair shop."</p>
-    </div>
-    <div class="review">
-      <img src="https://i.pravatar.cc/100?img=4" alt="Reviewer 4">
-      <h3>Hoda M.</h3>
-      <div class="stars">★★★★★</div>
-      <p>"The technicians were knowledgeable and explained the issues with my car clearly, im amazed."</p>
-    </div>
-    <div class="review">
-      <img src="https://i.pravatar.cc/100?img=5" alt="Reviewer 5">
-      <h3>Jen C.</h3>
-      <div class="stars">★★★★★</div>
-      <p>"Very friendly and quick."</p>
+      <a href="tel:+15179770450" class="nav-cta">Book Now</a>
     </div>
   </div>
-  <a href="https://www.google.com/maps/place/CARZILLA+AUTO+CARE/@42.6993788,-84.5644796,312m/data=!3m1!1e3!4m18!1m9!3m8!1s0x8817f130017d5edd:0x5e1bcab597c2a911!2sCARZILLA+AUTO+CARE!8m2!3d42.6993778!4d-84.5638359!9m1!1b1!16s%2Fg%2F11sds7r65c!3m7!1s0x8817f130017d5edd:0x5e1bcab597c2a911!8m2!3d42.6993778!4d-84.5638359!9m1!1b1!16s%2Fg%2F11sds7r65c?entry=ttu&g_ep=EgoyMDI1MDQyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="cta-btn review-btn">Read More Reviews</a>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="hero" style="max-width:none; padding:0;">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Lansing, Michigan — Since 2014</div>
+    <h1 class="hero-title">CAR<span>ZILLA</span><br>AUTO CARE</h1>
+    <p class="hero-sub">Quality Repairs. Honest Prices. Every Time.</p>
+    <div class="hero-actions">
+      <a href="tel:+15179770450" class="btn-primary">📞 Call to Book</a>
+      <a href="#services" class="btn-outline">View Services</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
 </section>
 
+<!-- SERVICES -->
+<section id="services" style="max-width:none; padding:5rem 0 0;">
+  <div style="max-width:1300px; margin:auto; padding: 0 2rem;">
+    <div class="services-header" data-aos="fade-up">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Services</h2>
+      <div class="section-divider"></div>
+    </div>
+  </div>
+  <div class="service-grid">
 
+    <div class="service-card" data-aos="fade-up">
+      <div class="card-icon-wrap"><img src="oilchange.png" alt="Oil Change" /></div>
+      <h3>Full Synthetic Oil Change</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$49</div>
+    </div>
 
+    <div class="service-card" data-aos="fade-up" data-aos-delay="50">
+      <div class="card-icon-wrap"><img src="breakk.png" alt="Front Brakes" /></div>
+      <h3>Front Brakes &amp; Rotors</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$289</div>
+    </div>
 
+    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="card-icon-wrap"><img src="rearr.png" alt="Rear Brakes" /></div>
+      <h3>Rear Brakes &amp; Rotors</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$289</div>
+    </div>
 
+    <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+      <div class="card-icon-wrap"><img src="muffler.png" alt="Muffler" /></div>
+      <h3>Muffler &amp; Exhaust Repair</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$89</div>
+    </div>
 
+    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="card-icon-wrap"><img src="tireinstall.png" alt="Tire Install" /></div>
+      <h3>Tire Install</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$24.95</div>
+    </div>
 
-  <!-- CONTACT -->
-  <!-- CONTACT -->
+    <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+      <div class="card-icon-wrap"><img src="ac.png" alt="AC Recharge" /></div>
+      <h3>AC Recharge &amp; Evac</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$89</div>
+    </div>
+
+    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="card-icon-wrap"><img src="radiator.png" alt="Radiator" /></div>
+      <h3>Radiator Flush</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$179</div>
+    </div>
+
+    <div class="service-card" data-aos="fade-up" data-aos-delay="350">
+      <div class="card-icon-wrap"><img src="check.png" alt="Inspection" /></div>
+      <h3>Full Vehicle Inspection</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$89</div>
+    </div>
+
+    <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="card-icon-wrap"><img src="2WHEEL.png" alt="2 Wheel Alignment" /></div>
+      <h3>2 Wheel Alignment</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$69</div>
+    </div>
+
+    <div class="service-card" data-aos="fade-up" data-aos-delay="450">
+      <div class="card-icon-wrap"><img src="4wheel.png" alt="4 Wheel Alignment" /></div>
+      <h3>4 Wheel Alignment</h3>
+      <p>Includes parts &amp; labor</p>
+      <p class="service-note">Some vehicles may vary</p>
+      <div class="service-price">$89</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DISCOUNTS -->
+<div class="discounts-wrap" id="discounts">
+  <section data-aos="fade-up">
+    <div>
+      <div class="section-label">Save More</div>
+      <h2 class="section-title">Deals &amp; Discounts</h2>
+      <div class="section-divider"></div>
+      <div class="discount-items">
+        <div class="discount-item">
+          <div class="discount-item-icon">🔧</div>
+          <div class="discount-item-text">
+            <strong>50% OFF Tire Alignment</strong> with purchase of a set of 4 new tires.
+          </div>
+        </div>
+        <div class="discount-item">
+          <div class="discount-item-icon">🔑</div>
+          <div class="discount-item-text">
+            <strong>Key Programming from $49</strong> — onsite vehicle programming &amp; custom key cutting.
+            <small>Costs vary by vehicle.</small>
+          </div>
+        </div>
+        <div class="discount-item">
+          <div class="discount-item-icon">🫡</div>
+          <div class="discount-item-text">
+            <strong>10% OFF</strong> for city employees, law enforcement, healthcare workers, seniors &amp; veterans!
+          </div>
+        </div>
+        <div class="discount-item">
+          <div class="discount-item-icon">🛡️</div>
+          <div class="discount-item-text">
+            Every repair backed with a <strong>2 Year / 24,000 Mile</strong> parts &amp; labor warranty.
+            <small>Some exclusions may apply.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="discount-visual" data-aos="zoom-in">
+      <div class="warranty-badge">
+        <div class="big-num">2YR</div>
+        <div class="big-num" style="font-size:2rem; color:#e8e8f0;">/ 24K</div>
+        <div class="label">Parts &amp; Labor Warranty</div>
+      </div>
+      <a href="tel:+15179770450" class="btn-primary" style="clip-path:none;">Call 517.977.0450</a>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="about-wrap" id="about">
+  <section data-aos="fade-up">
+    <div class="about-image" data-aos="fade-right">
+      <img src="carzila.jpg" alt="Carzilla Auto Care Shop" />
+      <div class="about-image-frame"></div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">About Carzilla</h2>
+      <div class="section-divider"></div>
+      <p>We're passionate about cars and even more passionate about our customers. With over 10 years of experience, Carzilla delivers top-quality auto care with honesty and integrity.</p>
+      <p>From routine oil changes to complex repairs, our certified technicians treat every vehicle like it's their own. No upsells. No surprises. Just great work at fair prices.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Exp.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Google Rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">24K</div>
+          <div class="stat-label">Mile Warranty</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- REVIEWS -->
+<div class="reviews-wrap" id="reviews">
+  <section data-aos="fade-up" style="text-align:center;">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">What Customers Say</h2>
+    <div class="section-divider" style="margin:0 auto 3rem;"></div>
+
+    <div class="review-slider" id="reviewSlider">
+      <div class="review-card active">
+        <img src="https://i.pravatar.cc/100?img=1" alt="Basheer A." class="review-avatar">
+        <div class="review-name">Basheer A.</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The team thrives to make your experience memorable. Their prices are amazing!"</p>
+      </div>
+      <div class="review-card">
+        <img src="https://i.pravatar.cc/100?img=2" alt="C B." class="review-avatar">
+        <div class="review-name">C B.</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Definitely the place to go for honest, affordable, professional car repair. The mechanics go above and beyond. Highly recommend!"</p>
+      </div>
+      <div class="review-card">
+        <img src="https://i.pravatar.cc/100?img=3" alt="Angelica G." class="review-avatar">
+        <div class="review-name">Angelica G.</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Very honest and affordable repair shop. Great experience every time."</p>
+      </div>
+      <div class="review-card">
+        <img src="https://i.pravatar.cc/100?img=4" alt="Hoda M." class="review-avatar">
+        <div class="review-name">Hoda M.</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The technicians were knowledgeable and explained the issues with my car clearly. I'm amazed!"</p>
+      </div>
+      <div class="review-card">
+        <img src="https://i.pravatar.cc/100?img=5" alt="Jen C." class="review-avatar">
+        <div class="review-name">Jen C.</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Very friendly and quick. In and out without any hassle. Will definitely come back!"</p>
+      </div>
+    </div>
+
+    <div class="review-dots" id="reviewDots"></div>
+
+    <a href="https://www.google.com/maps/place/CARZILLA+AUTO+CARE/@42.6993788,-84.5644796,312m" target="_blank" class="btn-outline">Read All Google Reviews</a>
+  </section>
+</div>
+
 <!-- CONTACT -->
-<section id="contact" class="contact-modern" data-aos="fade-up">
-  <h2>Contact Us</h2>
-  <ul class="contact-list">
-    <li>
-      <span>📍</span>
-      <a href="https://www.google.com/maps/place/5317+S+Cedar+St,+Lansing,+MI+48911" target="_blank">
-        5317 S Cedar St, Lansing, MI 48911
-      </a>
-    </li>
-    <li>
-      <span>📞</span>
-      <a href="tel:5179770450">+1 517 977-0450</a>
-    </li>
-    <li>
-      <span>📧</span>
-      <a href="mailto:carzillami@gmail.com">carzillami@gmail.com</a>
-    </li>
-    <li>
-      <span>⏰</span>
-      <p>Mon–Fri: 9am – 6pm<br>Sat–Sun: Closed</p>
-    </li>
-    <li>
-      <span>🔗</span>
-      <a href="https://www.facebook.com/CARZILLAAUTOCARE" target="_blank" class="facebook-link">
-        <img src="facebook.png" alt="Facebook" /> Facebook Page
-      </a>
-    </li>
-  </ul>
-</section>
+<div class="contact-wrap" id="contact">
+  <section data-aos="fade-up">
+    <div>
+      <div class="section-label">Find Us</div>
+      <h2 class="section-title">Contact Us</h2>
+      <div class="section-divider"></div>
+      <div class="contact-items">
+        <a href="https://www.google.com/maps/place/5317+S+Cedar+St,+Lansing,+MI+48911" target="_blank" class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Address</div>
+            <div class="contact-detail-val">5317 S Cedar St, Lansing, MI 48911</div>
+          </div>
+        </a>
+        <a href="tel:5179770450" class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-val">+1 517 977-0450</div>
+          </div>
+        </a>
+        <a href="mailto:carzillami@gmail.com" class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-val">carzillami@gmail.com</div>
+          </div>
+        </a>
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <div>
+            <div class="contact-detail-label">Hours</div>
+            <div class="contact-detail-val">Mon – Fri: 9am – 6pm<small>Saturday & Sunday: Closed</small></div>
+          </div>
+        </div>
+        <a href="https://www.facebook.com/CARZILLAAUTOCARE" target="_blank" class="contact-item">
+          <div class="contact-icon"><img src="facebook.png" style="width:24px" alt="Facebook"></div>
+          <div>
+            <div class="contact-detail-label">Social</div>
+            <div class="contact-detail-val">Facebook Page</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-map" data-aos="fade-left">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2921.847!2d-84.5644796!3d42.6993788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8817f130017d5edd%3A0x5e1bcab597c2a911!2sCARZILLA%20AUTO%20CARE!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus"
+        allowfullscreen="" loading="lazy">
+      </iframe>
+      <div class="map-overlay-tag">Carzilla Auto Care · Lansing, MI</div>
+    </div>
+  </section>
+</div>
 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="carzilla-logo.png" alt="Carzilla" />
+  </div>
+  <p class="footer-text">© 2025 Carzilla Auto Care. All rights reserved.</p>
+  <p class="footer-text" style="margin-top:0.3rem;">Designed by <span>Omar Abdulwahhab</span></p>
+</footer>
 
+<!-- SCRIPTS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ once: true, duration: 700 });
 
+  // Popup
+  window.addEventListener('load', () => {
+    setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 4000);
+  });
 
-   
+  // Open Status
+  function checkStatus() {
+    const now = new Date();
+    const day = now.getDay(), hour = now.getHours();
+    const open = day >= 1 && day <= 5 && hour >= 9 && hour < 18;
+    const dot = document.getElementById('statusDot');
+    const txt = document.getElementById('statusText');
+    dot.style.background = open ? '#00c853' : '#d50000';
+    txt.textContent = open ? 'Open Now' : 'Closed';
+    if (open) dot.style.animation = 'pulse-dot 2s infinite';
+  }
+  checkStatus();
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Carzilla Auto Care. All rights reserved.</p>
-    <p>Designed by OMAR ABDULWAHHAB</p>
-  </footer>
-
-  <!-- SCRIPTS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
-
-    const testimonials = document.querySelectorAll(".testimonial");
-    let current = 0;
-    setInterval(() => {
-      testimonials[current].classList.remove("active");
-      current = (current + 1) % testimonials.length;
-      testimonials[current].classList.add("active");
-    }, 4000);
-
-    function toggleMobileMenu() {
-      const nav = document.getElementById("navLinks");
-      const burger = document.querySelector(".hamburger");
-      nav.classList.toggle("show");
-      burger.classList.toggle("active");
-    }
-
-    function checkOpenStatus() {
-      const now = new Date();
-      const day = now.getDay();
-      const hour = now.getHours();
-      const open = (day >= 1 && day <= 5) && (hour >= 9 && hour < 18);
-      const statusText = document.getElementById("statusText");
-      const circle = document.querySelector(".status-circle");
-
-      if (open) {
-        statusText.textContent = "Now Open – Come Visit Us";
-        circle.style.backgroundColor = "#00c853";
-      } else {
-        statusText.textContent = "Closed - Mon - Fri | 9am - 6pm";
-        circle.style.backgroundColor = "#d50000";
-      }
-    }
-
-    checkOpenStatus();
-
-  const reviews = document.querySelectorAll('.review');
-  let currentReview = 0;
-
-  function showNextReview() {
-    reviews[currentReview].classList.remove('active');
-    currentReview = (currentReview + 1) % reviews.length;
-    reviews[currentReview].classList.add('active');
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('show');
+    document.getElementById('burger').classList.toggle('active');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('show');
+    document.getElementById('burger').classList.remove('active');
   }
 
-  setInterval(showNextReview, 5000); // Change review every 5 seconds
+  // Review slider
+  const cards = document.querySelectorAll('.review-card');
+  const dotsWrap = document.getElementById('reviewDots');
+  let cur = 0;
+
+  cards.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'review-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsWrap.appendChild(d);
+  });
+
+  function goTo(n) {
+    cards[cur].classList.remove('active');
+    dotsWrap.children[cur].classList.remove('active');
+    cur = n;
+    cards[cur].classList.add('active');
+    dotsWrap.children[cur].classList.add('active');
+  }
+
+  setInterval(() => goTo((cur + 1) % cards.length), 5000);
+
+  // Hero bg swap for mobile
+  if (window.innerWidth <= 768) {
+    document.getElementById('heroBg').style.backgroundImage = "url('phoneverphoto.png')";
+  }
 </script>
-  </script>
 </body>
 </html>
-
-
