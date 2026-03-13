@@ -397,105 +397,208 @@
 
     /* ── SERVICES ── */
     #services {
-      max-width: 1400px;
+      max-width: none;
+      padding: 6rem 0 0;
     }
 
     .services-header {
       text-align: center;
       margin-bottom: 4rem;
+      padding: 0 2rem;
     }
 
     .services-header .section-divider {
-      margin: 0 auto 0;
+      margin: 0 auto;
     }
 
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5px;
-      background: var(--border);
-    }
-
-    .service-card {
-      background: var(--dark2);
-      padding: 2.5rem 2rem;
+    /* Job ticket row layout */
+    .service-list {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
       display: flex;
       flex-direction: column;
+      gap: 0;
+    }
+
+    .svc-row {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
       align-items: center;
-      text-align: center;
+      gap: 1.5rem;
+      padding: 1.4rem 1.8rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       position: relative;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
       cursor: default;
     }
 
-    .service-card::before {
+    .svc-row::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 2px; height: 0;
-      background: var(--red);
-      box-shadow: var(--glow-sm);
-      transition: height 0.4s ease;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(200,16,46,0.07) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
-    .service-card:hover::before { height: 100%; }
-    .service-card:hover { background: #1a1a24; }
+    .svc-row:hover::before { opacity: 1; }
 
-    .card-icon-wrap {
-      width: 90px; height: 90px;
-      background: rgba(200,16,46,0.08);
-      border: 1px solid rgba(200,16,46,0.2);
-      border-radius: 50%;
+    .svc-row::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+      box-shadow: var(--glow-sm);
+      transform: scaleY(0);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    .svc-row:hover::after { transform: scaleY(1); }
+
+    /* alternating subtle bg */
+    .svc-row:nth-child(odd) { background: rgba(255,255,255,0.015); }
+    .svc-row:nth-child(even) { background: rgba(0,0,0,0.2); }
+
+    .svc-hex {
+      width: 64px; height: 64px;
+      position: relative;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
+    }
+
+    .svc-hex::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(200,16,46,0.1);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      border: 1px solid rgba(200,16,46,0.3);
       transition: all 0.3s;
     }
 
-    .service-card:hover .card-icon-wrap {
-      background: rgba(200,16,46,0.15);
-      border-color: var(--red);
-      box-shadow: var(--glow-sm);
+    .svc-row:hover .svc-hex::before {
+      background: rgba(200,16,46,0.22);
+      box-shadow: 0 0 16px rgba(200,16,46,0.4);
     }
 
-    .card-icon-wrap img {
-      width: 54px; height: 54px;
+    .svc-hex img {
+      width: 36px; height: 36px;
       object-fit: contain;
-      filter: drop-shadow(0 0 4px rgba(200,16,46,0.4));
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 3px rgba(200,16,46,0.5));
+      transition: transform 0.3s;
     }
 
-    .service-card h3 {
+    .svc-row:hover .svc-hex img { transform: scale(1.12); }
+
+    .svc-info { flex: 1; }
+
+    .svc-name {
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #fff;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.25rem;
+      transition: color 0.3s;
     }
 
-    .service-card p {
-      font-size: 0.9rem;
+    .svc-row:hover .svc-name { color: #fff; }
+
+    .svc-desc {
+      font-size: 0.82rem;
       color: var(--muted);
-      margin-bottom: 0.3rem;
+      letter-spacing: 0.5px;
     }
 
-    .service-note {
-      font-size: 0.75rem;
-      color: #666;
-      font-style: italic;
-      margin-bottom: 1rem;
+    .svc-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
     }
 
-    .service-price {
+    .svc-price {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: var(--gold);
-      text-shadow: 0 0 12px rgba(245,197,24,0.5);
-      margin-top: auto;
+      text-shadow: 0 0 14px rgba(245,197,24,0.45);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .svc-tag {
+      font-size: 0.68rem;
+      color: #555;
+      font-style: italic;
+      letter-spacing: 0.5px;
+    }
+
+    .svc-cta {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 0.3rem 0.7rem;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
+
+    .svc-row:hover .svc-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .svc-cta:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    /* section number accent */
+    .svc-num {
+      position: absolute;
+      right: 1.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.025);
+      pointer-events: none;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+
+    .svc-row:hover .svc-num { color: rgba(200,16,46,0.07); }
+
+    @media (max-width: 768px) {
+      .svc-row {
+        grid-template-columns: 52px 1fr auto;
+        gap: 1rem;
+        padding: 1.1rem 1rem;
+      }
+      .svc-hex { width: 50px; height: 50px; }
+      .svc-hex img { width: 28px; height: 28px; }
+      .svc-name { font-size: 0.72rem; letter-spacing: 1px; }
+      .svc-price { font-size: 1.2rem; }
+      .svc-cta { display: none; }
+      .svc-num { font-size: 2.5rem; }
     }
 
     /* ── DISCOUNTS ── */
@@ -1027,94 +1130,143 @@
 </section>
 
 <!-- SERVICES -->
-<section id="services" style="max-width:none; padding:5rem 0 0;">
-  <div style="max-width:1300px; margin:auto; padding: 0 2rem;">
-    <div class="services-header" data-aos="fade-up">
-      <div class="section-label">What We Do</div>
-      <h2 class="section-title">Our Services</h2>
-      <div class="section-divider"></div>
-    </div>
+<section id="services">
+  <div class="services-header" data-aos="fade-up">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Our Services</h2>
+    <div class="section-divider"></div>
   </div>
-  <div class="service-grid">
 
-    <div class="service-card" data-aos="fade-up">
-      <div class="card-icon-wrap"><img src="oilchange.png" alt="Oil Change" /></div>
-      <h3>Full Synthetic Oil Change</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$49</div>
+  <div class="service-list">
+
+    <div class="svc-row" data-aos="fade-up">
+      <div class="svc-hex"><img src="oilchange.png" alt="Oil Change"></div>
+      <div class="svc-info">
+        <div class="svc-name">Full Synthetic Oil Change</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$49</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">01</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="50">
-      <div class="card-icon-wrap"><img src="breakk.png" alt="Front Brakes" /></div>
-      <h3>Front Brakes &amp; Rotors</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$289</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="50">
+      <div class="svc-hex"><img src="breakk.png" alt="Front Brakes"></div>
+      <div class="svc-info">
+        <div class="svc-name">Front Brakes &amp; Rotors</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$289</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">02</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-      <div class="card-icon-wrap"><img src="rearr.png" alt="Rear Brakes" /></div>
-      <h3>Rear Brakes &amp; Rotors</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$289</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="80">
+      <div class="svc-hex"><img src="rearr.png" alt="Rear Brakes"></div>
+      <div class="svc-info">
+        <div class="svc-name">Rear Brakes &amp; Rotors</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$289</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">03</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="150">
-      <div class="card-icon-wrap"><img src="muffler.png" alt="Muffler" /></div>
-      <h3>Muffler &amp; Exhaust Repair</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$89</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="110">
+      <div class="svc-hex"><img src="muffler.png" alt="Muffler"></div>
+      <div class="svc-info">
+        <div class="svc-name">Muffler &amp; Exhaust Repair</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$89</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">04</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-      <div class="card-icon-wrap"><img src="tireinstall.png" alt="Tire Install" /></div>
-      <h3>Tire Install</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$24.95</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="140">
+      <div class="svc-hex"><img src="tireinstall.png" alt="Tire Install"></div>
+      <div class="svc-info">
+        <div class="svc-name">Tire Install</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$24.95</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">05</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="250">
-      <div class="card-icon-wrap"><img src="ac.png" alt="AC Recharge" /></div>
-      <h3>AC Recharge &amp; Evac</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$89</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="170">
+      <div class="svc-hex"><img src="ac.png" alt="AC Recharge"></div>
+      <div class="svc-info">
+        <div class="svc-name">AC Recharge &amp; Evac</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$89</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">06</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-      <div class="card-icon-wrap"><img src="radiator.png" alt="Radiator" /></div>
-      <h3>Radiator Flush</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$179</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="200">
+      <div class="svc-hex"><img src="radiator.png" alt="Radiator"></div>
+      <div class="svc-info">
+        <div class="svc-name">Radiator Flush</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$179</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">07</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="350">
-      <div class="card-icon-wrap"><img src="check.png" alt="Inspection" /></div>
-      <h3>Full Vehicle Inspection</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$89</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="230">
+      <div class="svc-hex"><img src="check.png" alt="Inspection"></div>
+      <div class="svc-info">
+        <div class="svc-name">Full Vehicle Inspection</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$89</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">08</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-      <div class="card-icon-wrap"><img src="2WHEEL.png" alt="2 Wheel Alignment" /></div>
-      <h3>2 Wheel Alignment</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$69</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="260">
+      <div class="svc-hex"><img src="2WHEEL.png" alt="2 Wheel Alignment"></div>
+      <div class="svc-info">
+        <div class="svc-name">2 Wheel Alignment</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$69</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">09</div>
     </div>
 
-    <div class="service-card" data-aos="fade-up" data-aos-delay="450">
-      <div class="card-icon-wrap"><img src="4wheel.png" alt="4 Wheel Alignment" /></div>
-      <h3>4 Wheel Alignment</h3>
-      <p>Includes parts &amp; labor</p>
-      <p class="service-note">Some vehicles may vary</p>
-      <div class="service-price">$89</div>
+    <div class="svc-row" data-aos="fade-up" data-aos-delay="290">
+      <div class="svc-hex"><img src="4wheel.png" alt="4 Wheel Alignment"></div>
+      <div class="svc-info">
+        <div class="svc-name">4 Wheel Alignment</div>
+        <div class="svc-desc">Includes parts &amp; labor · Prices may vary by vehicle</div>
+      </div>
+      <div class="svc-right">
+        <div class="svc-price">$89</div>
+        <a href="tel:+15179770450" class="svc-cta">Book Now</a>
+      </div>
+      <div class="svc-num">10</div>
     </div>
 
   </div>
