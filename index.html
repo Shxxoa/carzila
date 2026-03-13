@@ -73,7 +73,12 @@
 
     .nav-logo img {
       height: 44px;
-      filter: drop-shadow(0 0 8px rgba(200,16,46,0.6));
+      mix-blend-mode: screen;
+      filter: drop-shadow(0 0 6px rgba(200,16,46,0.6));
+    }
+
+    @media (max-width: 768px) {
+      .nav-logo { display: none; }
     }
 
     .nav-links {
@@ -116,7 +121,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-family: 'Orbitron', sans-serif;
       letter-spacing: 1px;
       color: var(--text);
@@ -126,12 +131,11 @@
       width: 8px; height: 8px;
       border-radius: 50%;
       background: #f00;
-      animation: pulse-dot 2s infinite;
     }
 
     @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0,200,0,0.4); }
-      50% { box-shadow: 0 0 0 4px rgba(0,200,0,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,200,0,0.5); }
+      50% { box-shadow: 0 0 0 5px rgba(0,200,0,0); }
     }
 
     .nav-cta {
@@ -160,6 +164,7 @@
       gap: 5px;
       cursor: pointer;
       z-index: 1100;
+      margin-left: auto;
     }
     .hamburger span {
       display: block;
@@ -937,7 +942,12 @@
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
-      .hamburger { display: flex; }
+      .nav-logo { display: none; }
+      .hamburger { display: flex; margin-left: auto; }
+      .nav-container { justify-content: flex-end; }
+      .nav-right { gap: 0.5rem; }
+      .nav-cta { display: none !important; }
+      .status-pill { display: flex !important; font-size: 0.65rem; letter-spacing: 0.5px; }
       .nav-links {
         position: fixed;
         inset: 0;
@@ -977,13 +987,7 @@
   </style>
 </head>
 
-<!-- POPUP -->
-<div class="popup" id="popup">
-  <span class="popup-close" onclick="document.getElementById('popup').style.display='none'">×</span>
-  <div class="popup-eyebrow">Limited Time</div>
-  <div class="popup-title">10% OFF</div>
-  <div class="popup-body">Your first service! <strong>Expires 10/10/2025.</strong><br>Call us now: <strong>517.977.0450</strong></div>
-</div>
+<!-- POPUP REMOVED -->
 
 <body>
 
@@ -1305,9 +1309,6 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    <img src="carzilla-logo.png" alt="Carzilla" />
-  </div>
   <p class="footer-text">© 2025 Carzilla Auto Care. All rights reserved.</p>
   <p class="footer-text" style="margin-top:0.3rem;">Designed by <span>Omar Abdulwahhab</span></p>
 </footer>
@@ -1318,9 +1319,7 @@
   AOS.init({ once: true, duration: 700 });
 
   // Popup
-  window.addEventListener('load', () => {
-    setTimeout(() => { document.getElementById('popup').style.display = 'block'; }, 4000);
-  });
+  // popup disabled
 
   // Open Status
   function checkStatus() {
@@ -1329,9 +1328,15 @@
     const open = day >= 1 && day <= 5 && hour >= 9 && hour < 18;
     const dot = document.getElementById('statusDot');
     const txt = document.getElementById('statusText');
-    dot.style.background = open ? '#00c853' : '#d50000';
-    txt.textContent = open ? 'Open Now' : 'Closed';
-    if (open) dot.style.animation = 'pulse-dot 2s infinite';
+    if (open) {
+      dot.style.background = '#00c853';
+      dot.style.animation = 'pulse-dot 2s infinite';
+      txt.textContent = 'Open Now';
+    } else {
+      dot.style.background = '#d50000';
+      dot.style.animation = 'none';
+      txt.textContent = 'Closed · Mon–Fri 9–6';
+    }
   }
   checkStatus();
 
