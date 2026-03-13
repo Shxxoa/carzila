@@ -71,15 +71,7 @@
       margin: auto;
     }
 
-    .nav-logo img {
-      height: 44px;
-      mix-blend-mode: screen;
-      filter: drop-shadow(0 0 6px rgba(200,16,46,0.6));
-    }
-
-    @media (max-width: 768px) {
-      .nav-logo { display: none; }
-    }
+    .nav-logo { display: none; }
 
     .nav-links {
       list-style: none;
@@ -164,7 +156,6 @@
       gap: 5px;
       cursor: pointer;
       z-index: 1100;
-      margin-left: auto;
     }
     .hamburger span {
       display: block;
@@ -943,11 +934,11 @@
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       .nav-logo { display: none; }
-      .hamburger { display: flex; margin-left: auto; }
-      .nav-container { justify-content: flex-end; }
-      .nav-right { gap: 0.5rem; }
+      .hamburger { display: flex; }
+      .nav-container { justify-content: space-between; padding: 0 1.2rem; }
       .nav-cta { display: none !important; }
       .status-pill { display: flex !important; font-size: 0.65rem; letter-spacing: 0.5px; }
+      .nav-right { gap: 0.4rem; }
       .nav-links {
         position: fixed;
         inset: 0;
